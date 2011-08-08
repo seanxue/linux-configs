@@ -1,0 +1,8 @@
+this is most configs of my linux PC
+
+directories and usage:
+  vim: vim plugins and configs
+       edit ~/.vimrc and add the following line to make these configs effective
+       set runtimepath=~/cfg/vim,$VIMRUNTIME
+       source ~/cfg/vim/.vimrc
+

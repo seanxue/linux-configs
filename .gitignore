@@ -1,0 +1,10 @@
+# git ignore file, set untrak files
+.svn
+CVS
+.git
+
+*~
+\#*\#
+*.swp
+
+vim/tags/*/

@@ -1,0 +1,100 @@
+"#<cr> global functioins
+function! GetSys()
+    if has("win32")
+        return "win32"
+    elseif has("unix")
+        return "unix"
+    else
+        return "mac"
+    endif
+endfunction
+
+" generic
+set runtimepath=~/cfg/.vim,$VIMRUNTIME
+set nocompatible
+set number
+set showcmd
+set fileformats=unix,dos,mac
+set encoding=utf-8
+filetype plugin indent on
+syntax on
+" syntax enable
+
+set history=600 "Command history count
+set wildmenu "Turn on WiLd menu
+set wildmode=longest:full,list,full
+set ruler "Always show current positon 
+set cmdheight=2 "Command buffer heigh
+
+set smartcase
+set ignorecase "Ignore case when searching
+set hlsearch "Highlight search things
+set incsearch "Make search act like search in modern browsers
+
+set showmatch "Show matching bracets when text indicator is over them
+set matchtime=3 "How many tenths of a second to blin
+
+" settings of tab
+set expandtab
+set tabstop=4
+set shiftwidth=4
+set softtabstop=4
+
+set autoindent 
+set smartindent
+
+set mouse=v "catch mouse TODO set variant from OSs
+
+if has("gui_running")
+  colorscheme peaksea
+  set background=dark
+else
+  set background=dark
+  colorscheme zellner
+endif
+
+let mapleader = ","
+let g:mapleader = ","
+
+source $VIMRUNTIME/ftplugin/man.vim
+nmap <leader>M :Man <C-R>=expand("<cword>")<CR><CR>
+
+" settings of exuberant ctags
+let Tlist_Ctags_Cmd="/usr/bin/ctags"
+" let Tlist_Auto_Open=1
+let Tlist_Inc_Winwidth=0
+let Tlist_Auto_Update=1
+let Tlist_Compact_Format=1
+let Tlist_File_Fold_Auto_Close=1
+let Tlist_Exit_OnlyWindow = 1
+autocmd BufWrite *.h,*.c,*.hpp,*.cc,*.cpp,*.rl,*.def call system("ctags -a --extra=+q " . expand("%:p"))
+autocmd BufRead,BufNewFile *.h,*.hpp,*.c,*.cpp,*.cc setlocal tags+=~/cfg/.vim/tags/c/**/tags
+set tags=./tags;${HOME}
+
+let g:winManagerWindowLayout='TagList,FileExplorer'
+let g:persistentBehaviour=0
+let g:winManagerWidth=24
+nmap wm :WMToggle<cr>
+
+" OmniCppComplete
+let OmniCpp_NamespaceSearch = 1
+let OmniCpp_GlobalScopeSearch = 1
+let OmniCpp_ShowAccess = 1
+let OmniCpp_ShowPrototypeInAbbr = 1 " show function parameters
+let OmniCpp_MayCompleteDot = 1 " autocomplete after .
+let OmniCpp_MayCompleteArrow = 1 " autocomplete after ->
+let OmniCpp_MayCompleteScope = 1 " autocomplete after ::
+let OmniCpp_DefaultNamespaces = ["std", "_GLIBCXX_STD"]
+" automatically open and close the popup menu / preview window
+autocmd CursorMovedI,InsertLeave * if pumvisible() == 0|silent! pclose|endif
+set completeopt=longest,menuone,menu,preview
+
+" Grep
+nnoremap <silent> <F3> :Grep<CR>
+
+" yankring
+let g:yankring_history_file = '.yankring_history'
+
+" c/c++ support
+" jump to header file
+map <leader>a :A<cr> 
