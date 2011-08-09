@@ -10,7 +10,7 @@ function! GetSys()
 endfunction
 
 " generic
-set runtimepath=~/cfg/.vim,$VIMRUNTIME
+set runtimepath=~/cfg/vim,$VIMRUNTIME
 set nocompatible
 set number
 set showcmd
@@ -68,7 +68,7 @@ let Tlist_Compact_Format=1
 let Tlist_File_Fold_Auto_Close=1
 let Tlist_Exit_OnlyWindow = 1
 autocmd BufWrite *.h,*.c,*.hpp,*.cc,*.cpp,*.rl,*.def call system("ctags -a --extra=+q " . expand("%:p"))
-autocmd BufRead,BufNewFile *.h,*.hpp,*.c,*.cpp,*.cc setlocal tags+=~/cfg/.vim/tags/c/**/tags
+autocmd BufRead,BufNewFile *.h,*.hpp,*.c,*.cpp,*.cc setlocal tags+=~/cfg/vim/tags/c/**/tags
 set tags=./tags;${HOME}
 
 let g:winManagerWindowLayout='TagList,FileExplorer'
@@ -97,4 +97,5 @@ let g:yankring_history_file = '.yankring_history'
 
 " c/c++ support
 " jump to header file
+let g:C_LocalTemplateFile = $HOME.'/cfg/vim/c-support/templates/Templates'
 map <leader>a :A<cr> 
