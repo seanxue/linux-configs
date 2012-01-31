@@ -2,6 +2,13 @@
 
 cfg_root=$(pwd)
 
+function check()
+{
+    if [ ! -e ~/bin ]; then 
+        mkdir -v ~/bin
+    fi
+}
+
 function conf_bash() 
 {
   # install .bashrc
@@ -38,10 +45,13 @@ function conf_git()
   echo install .gitconfig ...
   rm -vf ~/.gitconfig
   ln -s ${cfg_root}/gitconfig ~/.gitconfig
+  rm -vf ~/bin/git-info
+  ln -s ${cfg_root}/bin/git-info ~/bin/git-info
   echo install .gitconfig done
   echo 
 }
 
+check
 conf_bash
 conf_vim
 conf_git
