@@ -25,6 +25,11 @@ set wildmenu "Turn on WiLd menu
 set wildmode=longest:full,list,full
 set ruler "Always show current positon 
 set cmdheight=2 "Command buffer heigh
+set backspace=indent,eol,start
+
+if &diff == 1
+  set scrollbind
+endif
 
 set smartcase
 set ignorecase "Ignore case when searching
@@ -69,6 +74,7 @@ let Tlist_File_Fold_Auto_Close=1
 let Tlist_Exit_OnlyWindow = 1
 autocmd BufWrite *.h,*.c,*.hpp,*.cc,*.cpp,*.rl,*.def call system("ctags -a --extra=+q " . expand("%:p"))
 autocmd BufRead,BufNewFile *.h,*.hpp,*.c,*.cpp,*.cc setlocal tags+=~/cfg/vim/tags/c/**/tags
+autocmd BufRead,BufNewFile *.h,*.hpp,*.c,*.cpp,*.cc 2match Underlined /.\%81v/
 set tags=./tags;${HOME}
 
 let g:winManagerWindowLayout='TagList,FileExplorer'
@@ -89,13 +95,32 @@ let OmniCpp_DefaultNamespaces = ["std", "_GLIBCXX_STD"]
 autocmd CursorMovedI,InsertLeave * if pumvisible() == 0|silent! pclose|endif
 set completeopt=longest,menuone,menu,preview
 
+" NERD commenter settings
+let NERDShutUp=1
+
+" c/c++ support
+" jump to header file
+let g:C_LocalTemplateFile = $HOME.'/cfg/vim/c-support/templates/Templates'
+map <leader>a :A<cr>
+
+" doxygen settings
+let g:DoxygenToolkit_authorName="Sean Xue"
+let g:DoxygenToolkit_licenseTag=""
+let g:DoxygenToolkit_undocTag="DOXIGEN_SKIP_BLOCK"
+let g:DoxygenToolkit_briefTag_pre = "@brief "
+let g:DoxygenToolkit_paramTag_pre = "@param "
+let g:DoxygenToolkit_returnTag = "@return "
+let g:DoxygenToolkit_briefTag_funcName = "no"
+let g:DoxygenToolkit_maxFunctionProtoLines = 30
+map <leader>d :Dox<cr>
+
 " Grep
 nnoremap <silent> <F3> :Grep<CR>
 
 " yankring
 let g:yankring_history_file = '.yankring_history'
 
-" c/c++ support
-" jump to header file
-let g:C_LocalTemplateFile = $HOME.'/cfg/vim/c-support/templates/Templates'
-map <leader>a :A<cr> 
+" protobuf syntax support
+augroup filetype
+  au! BufRead,BufNewFile *.proto setfiletype proto
+augroup end

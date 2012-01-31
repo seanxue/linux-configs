@@ -1,9 +1,0 @@
-let g:netrw_dirhistmax  =10
-let g:netrw_dirhist_cnt =7
-let g:netrw_dirhist_1='/opt/apache2/conf/original'
-let g:netrw_dirhist_2='/etc/apache2/sites-available'
-let g:netrw_dirhist_3='/opt/apache2/conf'
-let g:netrw_dirhist_4='/home/sean/lab/rep/tfs/tests/intergrate'
-let g:netrw_dirhist_5='/opt/tfs'
-let g:netrw_dirhist_6='/opt/tfs/lib'
-let g:netrw_dirhist_7='/opt/tfs/conf'

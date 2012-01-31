@@ -20,8 +20,8 @@
 " press zR , in normal mode to OPEN  all folds
 " press zM , in normal mode to CLOSE all folds
 
-" Already been loaded? ~~
-if exists('Tb_loaded')
+" Already been loaded? ~~ and don't execute when using vimdiff
+if exists('Tb_loaded') || &diff == 1
     finish
 else
       let Tb_loaded= 1
