@@ -1,0 +1,10 @@
+[user]
+	name = Sean Xue
+	email = lianggui.xue@gmail.com
+[core]
+    gitProxy = gitproxy
+[color]
+    ui = auto
+[alias]
+    ca = commit -a
+    st = status

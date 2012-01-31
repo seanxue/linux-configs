@@ -32,5 +32,16 @@ function conf_vim()
   echo 
 }
 
+function conf_git()
+{
+  # install .gitconfig
+  echo install .gitconfig ...
+  rm -vf ~/.gitconfig
+  ln -s ${cfg_root}/gitconfig ~/.gitconfig
+  echo install .gitconfig done
+  echo 
+}
+
 conf_bash
 conf_vim
+conf_git
