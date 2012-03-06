@@ -29,6 +29,7 @@ if [ -z "$debian_chroot" ] && [ -r /etc/debian_chroot ]; then
 fi
 
 # set a fancy prompt (non-color, unless we know we "want" color)
+export TERM="xterm-256color"
 case "$TERM" in
     xterm-color) color_prompt=yes;;
 esac
@@ -107,6 +108,8 @@ fi
 alias ..='cd ..'
 alias rm='rm -v'
 alias diff='diff -u'
+alias mountiso='sudo mount -t iso9660 -o loop'
+alias grep='egrep'
 # core file limit
 ulimit -c unlimited
 
