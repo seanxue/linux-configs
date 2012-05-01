@@ -1,4 +1,4 @@
-"#<cr> global functioins
+" global functioins
 function! GetSys()
     if has("win32")
         return "win32"
@@ -14,8 +14,9 @@ set runtimepath=~/cfg/vim,$VIMRUNTIME
 set nocompatible
 set number
 set showcmd
-set fileformats=unix,dos,mac
 set encoding=utf-8
+set fileformats=unix,dos,mac
+set fileencodings=ucs-bom,utf-8,cp936,gb18030,big5,euc-jp,euc-kr,latin1
 filetype plugin indent on
 syntax on
 " syntax enable
@@ -51,15 +52,22 @@ set smartindent
 set mouse=v "catch mouse TODO set variant from OSs
 
 if has("gui_running")
-  colorscheme peaksea
   set background=dark
+  colorscheme peaksea
 else
   set background=dark
-  colorscheme zellner
+  colorscheme desert
 endif
 
 let mapleader = ","
 let g:mapleader = ","
+" buffer manipulate
+" last used buffer
+nmap <leader>b :b#<CR>
+" goto next buffer
+nmap <leader>bn :bn<CR>
+" goto previous buffer
+nmap <leader>bp :bp<CR>
 
 source $VIMRUNTIME/ftplugin/man.vim
 nmap <leader>M :Man <C-R>=expand("<cword>")<CR><CR>
@@ -93,7 +101,7 @@ let OmniCpp_MayCompleteScope = 1 " autocomplete after ::
 let OmniCpp_DefaultNamespaces = ["std", "_GLIBCXX_STD"]
 " automatically open and close the popup menu / preview window
 autocmd CursorMovedI,InsertLeave * if pumvisible() == 0|silent! pclose|endif
-set completeopt=longest,menuone,menu,preview
+set completeopt=longest,menu,menuone,preview
 
 " NERD commenter settings
 let NERDShutUp=1
@@ -101,6 +109,8 @@ let NERDShutUp=1
 " c/c++ support
 " jump to header file
 let g:C_LocalTemplateFile = $HOME.'/cfg/vim/c-support/templates/Templates'
+let g:C_FormatDate = '%F'
+let g:C_FormatTime = '%T'
 map <leader>a :A<cr>
 
 " doxygen settings
