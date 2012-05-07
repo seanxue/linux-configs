@@ -1,0 +1,76 @@
+#!/bin/bash
+
+concurrence=1
+repeating=1
+command=
+
+usage="usage:\t$(basename $0) [-c concurrence] [-r repeating] executable and args\n"
+usage=${usage}"example:$(basename $0) -c 3 -r 6 echo hello world"
+
+repeating_test()
+{
+    # $1 client id, $2 repeating times
+    for ((i=1; i<=$2; ++i)); do
+        echo -e "client: $1, running time: $i"
+        ${command} > /dev/null
+
+        ret_code=$?
+        if [[ 0 != ${ret_code} ]]; then
+            echo -e ", return code: ${ret_code}\n"
+        fi
+    done
+}
+
+concurrent_test()
+{
+    # $1 client number, $2 repeating times
+    for ((i=1; i<=$1; ++i)); do
+        repeating_test $i $2 &
+    done
+}
+
+while getopts 'c:r:h' option; do
+    case ${option} in 
+        c)
+            concurrence="${OPTARG}"
+            ;;
+        r)
+            repeating="${OPTARG}"
+            ;;
+        h)
+            echo -e ${usage}
+            exit 0
+            ;;
+        ?)
+            echo -e ${usage}
+            exit 1
+            ;;
+    esac
+done
+
+shift $(($OPTIND - 1))
+if [ -z "$*" ]; then
+    echo "test command is required"
+    echo 
+    echo -e ${usage}
+    exit 2
+else
+    command=$*
+fi
+
+echo "test with command: \"$*\""
+if (( 1 < ${concurrence} )); then
+    echo "${concurrence} concurrent test will be started, and eachone will run ${repeating} times"
+    sleep 3
+
+    concurrent_test ${concurrence} ${repeating}
+else
+    echo "one test will be started, and run ${repeating} times"
+    sleep 3
+
+    repeating_test 1 ${repeating}
+fi
+
+wait
+echo 
+echo "All tests are done"

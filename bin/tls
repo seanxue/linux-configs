@@ -1,0 +1,34 @@
+#!/bin/bash
+
+list_file=~/cfg/tx/list
+
+ListAll()
+{
+   cat ${list_file}
+}
+
+SearchByName()
+{
+    count=$( grep -e "^$1" ${list_file} | wc -l )
+
+    if [ 0 = ${count} ]; then
+        echo "not found machine with name=$1"
+        return 1
+    fi
+
+    if (( 1 < ${count} )); then
+        echo "more then one record found by name=$1"
+        return 1
+    fi
+
+    grep -e "^$1" ${list_file}
+
+    return 0
+}
+
+if [ 0 = $# ]; then
+    ListAll
+else
+    SearchByName $@
+fi
+

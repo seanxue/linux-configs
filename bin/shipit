@@ -1,0 +1,99 @@
+#!/bin/bash
+
+name=
+nflag=0
+opt_err=0
+
+host=
+port=22
+user=$(whoami)
+remote_dir=
+
+usage="usage:\t$(basename $0) -n name [-d remote dir] files\n"
+usage=${usage}"\t$(basename $0) -h host [-p port] [-u user] [-d remote dir] files\n" 
+
+while getopts 'n:h:p:u:d:' option 
+do
+    case ${option} in
+        n)
+            name="${OPTARG}"
+            nflag=1
+            ;;
+        h) 
+            if [ '1' = ${nflag} ]; then
+                opt_err=1
+                break
+            fi
+            host="${OPTARG}"
+            ;;
+        p)
+            if [ '1' = ${nflag} ]; then
+                opt_err=1
+                break
+            fi
+            port="${OPTARG}"
+            ;;
+        u)
+            if [ '1' = ${nflag} ]; then
+                opt_err=1
+                break
+            fi
+            user="${OPTARG}"
+            ;;
+        d)
+            if [ '1' = ${nflag} ]; then
+                opt_err=1
+                break
+            fi
+            remote_dir="${OPTARG}"
+            ;;
+        ?)
+            echo -e ${usage}
+            exit 2
+            ;;
+    esac
+done
+
+if [ '1' = ${opt_err} ]; then
+    echo -e ${usage}
+    exit 2
+fi
+
+if [ -z "${name}" ] && [ -z "${host}" ]; then
+    echo -e ${usage}
+    exit 2
+fi
+
+shift $(( $OPTIND - 1 ))
+
+if [ -z "$*" ]; then
+    echo "must specify what files to ship"
+    exit 2
+fi
+
+if [ -n "${name}" ]; then
+    # get data by tls
+    line=$( tls ${name} )    
+
+    if (( 0 != $? )); then
+        echo "files not shipped"
+        exit 1
+    fi
+
+    fields=( ${line} )
+    host=${fields[1]}
+    port=${fields[2]}
+    user=${fields[3]}
+    # if remote_dir is empty read from list file
+    if [ -z ${remote_dir} ]; then
+        remote_dir=${fields[5]}
+    fi
+else
+    # if remote_dir is empty, set to HOME
+    if [ -z ${remote_dir} ]; then
+        remote_dir="~"
+    fi
+fi
+
+echo "ship \"$*\" to \"${host}#${port}\" at \"${remote_dir}\" by \"${user}\""
+tar -cf - $* | ssh -p ${port} ${user}@${host} "cd ${remote_dir}; tar -xf -"

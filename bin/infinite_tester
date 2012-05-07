@@ -1,0 +1,18 @@
+#!/bin/bash
+
+usage="usage:\t$(basename $0) executable and args\n"
+usage=${usage}"example:$(basename $0) echo hello world"
+
+if [ $# -eq 0 ]; then
+    echo "test command is required"
+    echo
+    echo -e ${usage}
+fi
+
+command=$*
+while true; do
+    ${command} > /dev/null
+
+    sleep 9
+done
+
