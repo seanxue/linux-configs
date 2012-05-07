@@ -1,9 +1,7 @@
-test sed insert
 these are most of my configs on linux
 
-directories and usage:
-  vim : vim plugins and configs
-        edit ~/.vimrc and add the following line to make these configs effective
-        set runtimepath=~/cfg/vim,$VIMRUNTIME
-        source ~/cfg/vim/.vimrc
+usage:
+  run install.sh to install all configs
 
+directories:
+  vim : vim plugins and configs
