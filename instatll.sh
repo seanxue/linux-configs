@@ -2,11 +2,19 @@
 
 cfg_dir=$(dirname $(readlink -f $0))
 
-function check()
+function install_bin()
 {
-    if [ ! -e ~/bin ]; then 
-        mkdir -v ~/bin
-    fi
+  echo "install bin ..."
+
+  if [ -e ~/bin ]; then 
+    echo "~/bin is already existing"  
+    echo "do nothing!"
+  else 
+     ln -vs ${cfg_dir}/bin ~/bin
+     echo "install bin done"
+  fi
+
+  echo 
 }
 
 function conf_bash() 
@@ -55,13 +63,11 @@ function conf_git()
   echo install .gitconfig ...
   rm -vf ~/.gitconfig
   ln -s ${cfg_dir}/gitconfig ~/.gitconfig
-  rm -vf ~/bin/git-info
-  ln -s ${cfg_dir}/bin/git-info ~/bin/git-info
   echo install .gitconfig done
   echo 
 }
 
-check
+install_bin
 conf_bash
 conf_inputrc
 conf_vim
