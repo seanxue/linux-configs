@@ -1,5 +1,5 @@
 [http]
-  proxy = http://web-proxy.oa.com:8080
+  proxy = http://proxy.tencent.com:8080
 [user]
   name = Sean Xue
   email = lianggui.xue@gmail.com
