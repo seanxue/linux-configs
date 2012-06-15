@@ -81,9 +81,9 @@ let Tlist_Compact_Format=1
 let Tlist_File_Fold_Auto_Close=1
 let Tlist_Exit_OnlyWindow = 1
 autocmd BufWrite *.h,*.c,*.hpp,*.cc,*.cpp,*.rl,*.def call system("ctags -a --extra=+q " . expand("%:p"))
-autocmd BufRead,BufNewFile *.h,*.hpp,*.c,*.cpp,*.cc setlocal tags+=~/cfg/vim/tags/c/**/tags
+autocmd BufRead,BufNewFile *.h,*.hpp,*.c,*.cpp,*.cc setlocal tags+=~/.ctags/tags
 autocmd BufRead,BufNewFile *.h,*.hpp,*.c,*.cpp,*.cc 2match Underlined /.\%81v/
-set tags=./tags;${HOME}
+set tags=./tags;${HOME}/.ctags/tags
 
 let g:winManagerWindowLayout='TagList,FileExplorer'
 let g:persistentBehaviour=0
@@ -134,3 +134,6 @@ let g:yankring_history_file = '.yankring_history'
 augroup filetype
   au! BufRead,BufNewFile *.proto setfiletype proto
 augroup end
+
+" Indent Guides
+let g:indent_guides_guide_size=1

@@ -6,8 +6,8 @@ CVS
 *~
 \#*\#
 *.swp
+tags
 
-vim/tags/*/
 vim/.netrwhist
 vim/.VimballRecord
 pac/lvsproxy.pac
