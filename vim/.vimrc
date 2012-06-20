@@ -107,11 +107,13 @@ set completeopt=longest,menu,menuone,preview
 let NERDShutUp=1
 
 " c/c++ support
-" jump to header file
 let g:C_LocalTemplateFile = $HOME.'/cfg/vim/c-support/templates/Templates'
 let g:C_FormatDate = '%F'
 let g:C_FormatTime = '%T'
+" jump to header file
 map <leader>a :A<cr>
+" remove trailing space before writting buffer
+autocmd BufWritePre *.h,*.hpp,*.c,*.cpp,*.cc :%s/\s\+$//e
 
 " doxygen settings
 let g:DoxygenToolkit_authorName="Sean Xue"
