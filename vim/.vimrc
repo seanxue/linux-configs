@@ -74,7 +74,7 @@ nmap <leader>M :Man <C-R>=expand("<cword>")<CR><CR>
 
 " settings of exuberant ctags
 let Tlist_Ctags_Cmd="/usr/bin/ctags"
-" let Tlist_Auto_Open=1
+"let Tlist_Auto_Open=1
 let Tlist_Inc_Winwidth=0
 let Tlist_Auto_Update=1
 let Tlist_Compact_Format=1
@@ -85,10 +85,16 @@ autocmd BufRead,BufNewFile *.h,*.hpp,*.c,*.cpp,*.cc setlocal tags+=~/.ctags/tags
 autocmd BufRead,BufNewFile *.h,*.hpp,*.c,*.cpp,*.cc 2match Underlined /.\%81v/
 set tags=./tags;${HOME}/.ctags/tags
 
-let g:winManagerWindowLayout='TagList,FileExplorer'
+"let g:winManagerWindowLayout='TagList,FileExplorer'
+let g:winManagerWindowLayout='FileExplorer'
 let g:persistentBehaviour=0
-let g:winManagerWidth=24
+let g:winManagerWidth=30
 nmap wm :WMToggle<cr>
+nmap <F6> :WMToggle<cr>
+
+" tagbar settings
+let g:tagbar_width=30
+nmap <F7> :TagbarToggle<CR>
 
 " OmniCppComplete
 let OmniCpp_NamespaceSearch = 1
