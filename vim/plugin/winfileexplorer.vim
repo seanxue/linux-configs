@@ -154,6 +154,8 @@ function! FileExplorer_Start()
 		exe s:lastCursorRow
 		exe 'normal! '.s:lastCursorColumn.'|'
 	end
+	" turn off line number
+	setlocal nonumber
 endfunction
 
 function! FileExplorer_IsValid()
