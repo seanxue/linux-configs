@@ -73,7 +73,7 @@ nmap <C-b> :bn<CR>
 nmap <leader>bp :bp<CR>
 nmap <C-S-b> :bp<CR>
 " goto buffer by indicate buffer id
-nmap <leader>B :b
+nmap <leader>B :b 
 
 source $VIMRUNTIME/ftplugin/man.vim
 nmap <leader>M :Man <C-R>=expand("<cword>")<CR><CR>
@@ -123,7 +123,7 @@ let g:C_LocalTemplateFile = $HOME.'/cfg/vim/c-support/templates/Templates'
 let g:C_FormatDate = '%F'
 let g:C_FormatTime = '%T'
 " jump to header file
-map <leader>a :A<cr>
+map <leader>a :a<cr>
 " remove trailing space before writting buffer
 autocmd BufWritePre *.h,*.hpp,*.c,*.cpp,*.cc :%s/\s\+$//e
 
@@ -158,42 +158,9 @@ map <leader>nn :set nonumber<CR>
 map <leader>qa :quitall<CR>
 nmap QA :qa<CR>
 
-" lookupfile settings
-let g:LookupFile_MinPatLength = 2               "最少输入2个字符才开始查找
-let g:LookupFile_PreserveLastPattern = 0        "不保存上次查找的字符串
-let g:LookupFile_PreservePatternHistory = 1     "保存查找历史
-let g:LookupFile_AlwaysAcceptFirst = 1          "回车打开第一个匹配项目
-let g:LookupFile_AllowNewFiles = 0              "不允许创建不存在的文件
-if filereadable("./filenametags")                "设置tag文件的名字
-    let g:LookupFile_TagExpr = '"./filenametags"'
-endif
-
-" 在指定目录生成filenametags，并使lookupfile将这个文件作为查找源
-function SetRootOfTheProject(path)
-    " 进入指定目录
-    exe "cd ".a:path
-    " 生成文件标签
-    exe "!gen-filetags"
-    " 获取标签文件的路径
-    let tagFilePath = genutils#CleanupFileName(a:path.'/filenametags')
-    " 设置LookupFile插件的全局变量，使之以上面生成的标签文件作为查找源
-    "exe "let g:LookupFile_TagExpr='\"".tagFilePath."\"'"
-endfunction
-
-" 设置当前位置为工程的根目录
-function SetHereTheRoot()
-    call SetRootOfTheProject('.')
-endfunction
-nmap <leader>root :call SetHereTheRoot()<CR><CR>
-
-" 从用户的输入获取指定路径，并设置为工程的根目录
-function SetSpecifiedPathTheRoot()
-    call SetRootOfTheProject(input('请输入工程根目录的路径：'))
-endfunction
-nmap <leader>xroot :call SetSpecifiedPathTheRoot()<CR>
-
-" 使用LookupFile打开文件
-nmap <leader>o :LookupFile<CR>
+" tselectfiles settings
+nmap <leader>o :TSelectFilesInSubdirs<CR>
+nmap <leader>O :TSelectFiles<CR>
 
 " format xml file
 map <leader>xml :%s/></>\r</g<CR>gg=G
