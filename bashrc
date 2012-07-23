@@ -111,7 +111,7 @@ alias ..='cd ..'
 alias rm='rm -v'
 alias diff='diff -u'
 alias mountiso='sudo mount -t iso9660 -o loop'
-alias grep='egrep'
+alias grep='grep -P'
 # core file limit
 ulimit -c unlimited
 
